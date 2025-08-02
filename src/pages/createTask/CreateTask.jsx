@@ -1,73 +1,51 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
 const CreateTask = () => {
-    const navigate = useNavigate();
-    const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState('');
+  const [task, setTask] = useState("");
+  const [taskList, setTaskList] = useState(() => {
+    const saved = localStorage.getItem("tasks");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-    const handleAddTask = (e) => {
-        e.preventDefault();
-        if (newTask.trim()) {
-            const task = {
-                id: Date.now(),
-                text: newTask,
-                createdAt: new Date().toLocaleString(),
-            };
-            setTasks([task, ...tasks]);
-            setNewTask('');
-        }
+  const handleAddTask = () => {
+    if (task.trim() === "") return;
+
+    const newTask = {
+      id: Date.now(),
+      text: task,
     };
 
-    const handleDelete = (id) => {
-        setTasks(tasks.filter((t) => t.id !== id));
-    };
+    const updatedTasks = [...taskList, newTask];
+    setTaskList(updatedTasks);
+    setTask(""); // clear input
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // 👈 Save to localStorage
+  };
 
-    return (
-        <div className="container py-4">
-            <h2 className="mb-4">✅ Your Tasks</h2>
+  return (
+    <div className="container mt-4">
+      <h2>📝 Create Task</h2>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Enter task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+        <button className="btn btn-primary" onClick={handleAddTask}>
+          Add
+        </button>
+      </div>
 
-            <form onSubmit={handleAddTask} className="mb-4">
-                <div className="d-flex gap-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter new task..."
-                        value={newTask}
-                        onChange={(e) => setNewTask(e.target.value)}
-                    />
-                    <button type="submit" className="btn btn-primary">
-                        ➕ Add
-                    </button>
-                </div>
-            </form>
-
-            <div className="row">
-                {tasks.length === 0 ? (
-                    <p className="text-muted">No tasks yet. Add one above.</p>
-                ) : (
-                    tasks.map((task) => (
-                        <div className="col-md-4 mb-3" key={task.id}>
-                            <div className="card shadow-sm border-0">
-                                <div className="card-body">
-                                    <p className="card-text">{task.text}</p>
-                                    <small className="text-muted">{task.createdAt}</small>
-                                    <div className="mt-3 d-flex justify-content-end">
-                                        <button
-                                            className="btn btn-sm btn-outline-danger"
-                                            onClick={() => handleDelete(task.id)}
-                                        >
-                                            🗑️ Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
-        </div>
-    );
+      <ul className="list-group">
+        {taskList.map((t) => (
+          <li className="list-group-item" key={t.id}>
+            {t.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default CreateTask;

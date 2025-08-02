@@ -3,7 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaSignInAlt, FaPalette, FaUser, FaSignOutAlt, FaUserPlus } from 'react-icons/fa';
+import {
+  FaSearch,
+  FaSignInAlt,
+  FaPalette,
+  FaUser,
+  FaSignOutAlt,
+  FaUserPlus
+} from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
 const themes = [
@@ -18,9 +25,8 @@ const themes = [
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('selectedTheme') || 'classic-light';
+    return localStorage.getItem('selectedTheme') || 'anim-fade';
   });
-
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -31,7 +37,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim() !== '') {
+    if (searchQuery.trim()) {
       alert(`Searching for: ${searchQuery}`);
     }
   };
@@ -60,7 +66,7 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -159,7 +165,7 @@ const Navbar = () => {
                   </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <button 
+                    <button
                       className="dropdown-item d-flex align-items-center gap-2 text-danger"
                       onClick={handleLogout}
                     >
