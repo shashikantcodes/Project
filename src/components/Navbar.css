@@ -1,4 +1,146 @@
-.container {
-  padding: 2rem;
-  color: #333;
+/* === GLOBAL RESET === */
+body, html {
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* === COMMON ELEMENTS === */
+input, select, button {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* === THEME: CLASSIC LIGHT === */
+.classic-light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.classic-light nav,
+.classic-light footer {
+  background-color: #ffffff;
+  color: #212529;
+}
+
+.classic-light input,
+.classic-light select,
+.classic-light button {
+  background-color: #ffffff;
+  color: #212529;
+  border: 1px solid #ced4da;
+}
+
+/* === THEME: CLASSIC DARK === */
+.classic-dark {
+  background-color: #1f1f1f;
+  color: #e9ecef;
+}
+
+.classic-dark nav,
+.classic-dark footer {
+  background-color: #2c2c2c;
+  color: #e9ecef;
+}
+
+.classic-dark input,
+.classic-dark select,
+.classic-dark button {
+  background-color: #333;
+  color: #e9ecef;
+  border: 1px solid #495057;
+}
+
+/* === THEME: CLASSIC BLUE === */
+.classic-blue {
+  background-color: #e7f0fa;
+  color: #003366;
+}
+
+.classic-blue nav,
+.classic-blue footer {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.classic-blue input,
+.classic-blue select,
+.classic-blue button {
+  background-color: #ffffff;
+  color: #003366;
+  border: 1px solid #007bff;
+}
+
+/* === THEME: ANIMATED GLOW === */
+.anim-glow {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.anim-glow nav,
+.anim-glow footer {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  box-shadow: 0 0 15px #0ff;
+}
+
+.anim-glow input,
+.anim-glow select,
+.anim-glow button {
+  background-color: #202020;
+  color: #ffffff;
+  border: 1px solid #0ff;
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* === THEME: ANIMATED SLIDE === */
+.anim-slide {
+  background-color: #fff8f0;
+  color: #3a1c71;
+}
+
+.anim-slide nav,
+.anim-slide footer {
+  background: linear-gradient(90deg, #f2709c, #ff9472);
+  color: #fff;
+}
+
+.anim-slide input,
+.anim-slide select,
+.anim-slide button {
+  background-color: #ffffff;
+  color: #3a1c71;
+  border: 1px solid #f2709c;
+  transition: transform 0.3s ease;
+}
+
+.anim-slide button:hover {
+  transform: translateX(4px);
+}
+
+/* === THEME: ANIMATED FADE === */
+.anim-fade {
+  background-color: #1c1f2a;
+  color: #f1f1f1;
+}
+
+.anim-fade nav,
+.anim-fade footer {
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  color: #f1f1f1;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.anim-fade input,
+.anim-fade select,
+.anim-fade button {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border: 1px solid #34495e;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
