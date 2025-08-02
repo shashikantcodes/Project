@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Navbar.css';
 import { FaSearch, FaSignInAlt, FaPalette } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const themes = [
   { id: 'classic-light', label: 'Classic Light' },
@@ -36,7 +37,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm sticky-top" data-bs-theme="dark">
       <div className="container-fluid">
-        <a className="navbar-brand fw-bold" href="/">🔍 QuickDesk</a>
+        <Link className="navbar-brand fw-bold" to="/">🔍 QuickDesk</Link>
 
         <button
           className="navbar-toggler"
@@ -53,33 +54,33 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
 
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <Link className="nav-link dropdown-toggle" to="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dashboard
-              </a>
+              </Link>
               <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
-                <li><a className="dropdown-item" href="/dashboard/overview">Overview</a></li>
-                <li><a className="dropdown-item" href="/dashboard/stats">Stats</a></li>
-                <li><a className="dropdown-item" href="/dashboard/reports">Reports</a></li>
+                <li><Link className="dropdown-item" to="/dashboard/overview">Overview</Link></li>
+                <li><Link className="dropdown-item" to="/dashboard/stats">Stats</Link></li>
+                <li><Link className="dropdown-item" to="/dashboard/reports">Reports</Link></li>
               </ul>
             </li>
 
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <Link className="nav-link dropdown-toggle" to="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Features
-              </a>
+              </Link>
               <ul className="dropdown-menu" aria-labelledby="featuresDropdown">
-                <li><a className="dropdown-item" href="/features/ai">AI Tools</a></li>
-                <li><a className="dropdown-item" href="/features/integrations">Integrations</a></li>
-                <li><a className="dropdown-item" href="/features/automation">Automation</a></li>
+                <li><Link className="dropdown-item" to="/features/ai">AI Tools</Link></li>
+                <li><Link className="dropdown-item" to="/features/integrations">Integrations</Link></li>
+                <li><Link className="dropdown-item" to="/features/automation">Automation</Link></li>
               </ul>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="/contact">Contact</a>
+              <Link className="nav-link" to="/contact">Contact</Link>
             </li>
           </ul>
 
@@ -111,9 +112,9 @@ const Navbar = () => {
               </select>
             </div>
 
-            <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
+            <Link className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" to="/login">
               <FaSignInAlt /> Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
