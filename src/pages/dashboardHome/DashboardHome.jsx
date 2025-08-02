@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const DashboardHome = () => {
     const userName = "godhand"; // Replace with dynamic data later if needed
+    const navigate = useNavigate();
 
     return (
         <article className="py-5 px-3 bg-light text-dark dark:bg-black dark:text-white min-vh-100">
@@ -17,10 +20,14 @@ const DashboardHome = () => {
                 {/* Quick Actions */}
                 <section className="row g-4 mb-5">
                     <div className="col-md-4">
-                        <button className="btn btn-primary w-100 py-3 rounded-3 shadow-sm">
+                        <button
+                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
+                            onClick={() => navigate("/notes")}
+                        >
                             📝 Add Note
                         </button>
                     </div>
+
                     <div className="col-md-4">
                         <button className="btn btn-success w-100 py-3 rounded-3 shadow-sm">
                             ✅ Create Task
