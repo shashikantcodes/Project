@@ -1,5 +1,4 @@
 import React from 'react';
-import './Navbar.css'; // Use same CSS for theme compatibility
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
