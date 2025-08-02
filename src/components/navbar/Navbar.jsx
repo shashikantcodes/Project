@@ -14,12 +14,16 @@ const themes = [
 ];
 
 const Navbar = () => {
-  const [theme, setTheme] = useState('classic-light');
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('selectedTheme') || 'classic-light';
+  });
+
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     document.body.className = '';
     document.body.classList.add(theme);
+    localStorage.setItem('selectedTheme', theme);
   }, [theme]);
 
   const handleSearch = (e) => {
@@ -94,8 +98,6 @@ const Navbar = () => {
           </form>
 
           <div className="d-flex align-items-center gap-2">
-
-
             <div className="d-flex align-items-center gap-1">
               <FaPalette className="text-white me-1" />
               <select
@@ -107,7 +109,9 @@ const Navbar = () => {
                   <option key={t.id} value={t.id}>{t.label}</option>
                 ))}
               </select>
-            </div> <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
+            </div>
+
+            <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
               <FaSignInAlt /> Login
             </a>
           </div>

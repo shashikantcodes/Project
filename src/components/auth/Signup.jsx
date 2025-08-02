@@ -43,14 +43,15 @@ function SignUp({ theme }) {
 
   return (
     <div
-      className={`signup d-flex flex-column align-items-center justify-content-center p-3 bg-${theme} text-${theme === "dark" ? "light" : "dark"}`}
-      style={{ height: "100vh" }}
+      className="login d-flex flex-column align-items-center justify-content-center p-3"
+      style={{ height: "90.7vh" }}
     >
-      {/* Header */}
-      <div className="text-center mb-3">
-        <FaUserPlus fontSize="1.5rem" />
-        <h2 className="fw-bold mt-2">Create Your Account</h2>
+      <div className="d-flex flex-column align-items-center mb-3">
+        <FaUserPlus className="text-theme" fontSize="1.5rem" />
+        <h2 className="fw-bold text-theme">Create Your Account</h2>
       </div>
+
+
 
       {/* Form */}
       <form
