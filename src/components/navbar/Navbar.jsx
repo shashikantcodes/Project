@@ -3,14 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-import {
-  FaSearch,
-  FaSignInAlt,
-  FaPalette,
-  FaUser,
-  FaSignOutAlt,
-  FaUserPlus
-} from 'react-icons/fa';
+import { FaSearch, FaSignInAlt, FaPalette, FaUser, FaSignOutAlt, FaUserPlus } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
 const themes = [
@@ -27,6 +20,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('selectedTheme') || 'anim-fade';
   });
+
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -37,7 +31,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
+    if (searchQuery.trim() !== '') {
       alert(`Searching for: ${searchQuery}`);
     }
   };
@@ -66,7 +60,7 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -75,6 +69,19 @@ const Navbar = () => {
               <Link className="nav-link" to="/">Home</Link>
             </li>
 
+<<<<<<< HEAD
+            <li className="nav-item dropdown">
+              <Link className="nav-link dropdown-toggle" to="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dashboard
+              </Link>
+              <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
+                <li><Link className="dropdown-item" to="/notes">Notes</Link></li>
+                <li><Link className="dropdown-item" to="/create-task">Create Task</Link></li>
+                <li><Link className="dropdown-item" to="/generate-report">Generate Report</Link></li>
+                <li><Link className="dropdown-item" to="/reminders">Reminders</Link></li>
+              </ul>
+            </li>
+=======
             {isAuthenticated && (
               <>
                 <li className="nav-item dropdown">
@@ -90,6 +97,7 @@ const Navbar = () => {
                     <li><Link className="dropdown-item" to="/generate-report">Generate Report</Link></li>
                   </ul>
                 </li>
+>>>>>>> e5e554ead1fbc55a53cfb6a72e120c334ced6e87
 
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -165,7 +173,7 @@ const Navbar = () => {
                   </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <button
+                    <button 
                       className="dropdown-item d-flex align-items-center gap-2 text-danger"
                       onClick={handleLogout}
                     >
