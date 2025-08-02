@@ -15,6 +15,11 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import VerifyOtp from './components/auth/VerifyOtp';
 import UpdatePassword from './components/auth/UpdatePassword';
 import UserDashboard from './components/user/UserDashboard';
+import DashboardHome from './pages/dashboardHome/DashboardHome';
+import Notes from './pages/notes/Notes';
+import Reminders from './pages/reminder/Reminder';
+import CreateTask from './pages/createTask/CreateTask';
+import GenerateReport from './pages/generateReport/GenerateReport';
 
 function App() {
   return (
@@ -72,6 +77,46 @@ function App() {
           element={
             <ProtectedRoute requireAuth={true}>
               <UserDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/dashboard-home" 
+          element={
+            <ProtectedRoute requireAuth={true}>
+              <DashboardHome />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/notes" 
+          element={
+            <ProtectedRoute requireAuth={true}>
+              <Notes />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/reminders" 
+          element={
+            <ProtectedRoute requireAuth={true}>
+              <Reminders />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/create-task" 
+          element={
+            <ProtectedRoute requireAuth={true}>
+              <CreateTask />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/generate-report" 
+          element={
+            <ProtectedRoute requireAuth={true}>
+              <GenerateReport />
             </ProtectedRoute>
           } 
         />

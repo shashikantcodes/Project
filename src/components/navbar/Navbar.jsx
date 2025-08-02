@@ -45,9 +45,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm sticky-top" data-bs-theme="dark">
+    <nav className="navbar navbar-expand-lg sticky-top theme-bg">
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bold" to="/">🔍 QuickDesk</Link>
+        <Link className="navbar-brand fw-bold" to="/">
+          Project
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -75,9 +77,11 @@ const Navbar = () => {
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
                     <li><Link className="dropdown-item" to="/dashboard">My Dashboard</Link></li>
-                    <li><Link className="dropdown-item" to="/dashboard/overview">Overview</Link></li>
-                    <li><Link className="dropdown-item" to="/dashboard/stats">Stats</Link></li>
-                    <li><Link className="dropdown-item" to="/dashboard/reports">Reports</Link></li>
+                    <li><Link className="dropdown-item" to="/dashboard-home">Dashboard Home</Link></li>
+                    <li><Link className="dropdown-item" to="/notes">Notes</Link></li>
+                    <li><Link className="dropdown-item" to="/reminders">Reminders</Link></li>
+                    <li><Link className="dropdown-item" to="/create-task">Create Task</Link></li>
+                    <li><Link className="dropdown-item" to="/generate-report">Generate Report</Link></li>
                   </ul>
                 </li>
 
