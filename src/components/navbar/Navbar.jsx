@@ -26,7 +26,6 @@ const Navbar = () => {
     e.preventDefault();
     if (searchQuery.trim() !== '') {
       alert(`Searching for: ${searchQuery}`);
-      // Example: window.location.href = `/search?q=${searchQuery}`;
     }
   };
 
@@ -78,15 +77,9 @@ const Navbar = () => {
             <li className="nav-item">
               <a className="nav-link" href="/contact">Contact</a>
             </li>
-
-            <li className="nav-item ms-lg-3">
-              <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
-                <FaSignInAlt /> Login
-              </a>
-            </li>
           </ul>
 
-          <form className="d-flex me-2" role="search" onSubmit={handleSearch}>
+          <form className="d-flex me-3" role="search" onSubmit={handleSearch}>
             <input
               className="form-control form-control-sm me-1"
               type="search"
@@ -100,17 +93,23 @@ const Navbar = () => {
             </button>
           </form>
 
-          <div className="d-flex align-items-center gap-1">
-            <FaPalette className="text-white me-1" />
-            <select
-              className="form-select form-select-sm w-auto"
-              value={theme}
-              onChange={(e) => setTheme(e.target.value)}
-            >
-              {themes.map((t) => (
-                <option key={t.id} value={t.id}>{t.label}</option>
-              ))}
-            </select>
+          <div className="d-flex align-items-center gap-2">
+
+
+            <div className="d-flex align-items-center gap-1">
+              <FaPalette className="text-white me-1" />
+              <select
+                className="form-select form-select-sm w-auto"
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
+              >
+                {themes.map((t) => (
+                  <option key={t.id} value={t.id}>{t.label}</option>
+                ))}
+              </select>
+            </div> <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
+              <FaSignInAlt /> Login
+            </a>
           </div>
         </div>
       </div>

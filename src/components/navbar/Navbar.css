@@ -5,9 +5,18 @@ body, html {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* === COMMON ELEMENTS === */
-input, select, button {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+
+
+/* === BUTTON BASE STYLE (For Login/Signup) === */
+.btn-theme {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000 !important;
+}
+
+.btn-theme:hover {
+  background-color: #e2e6ea !important;
+  color: #000 !important;
 }
 
 /* === THEME: CLASSIC LIGHT === */
@@ -22,13 +31,17 @@ input, select, button {
   color: #212529;
 }
 
-.classic-light input,
+
 .classic-light select,
 .classic-light button {
   background-color: #ffffff;
   color: #212529;
   border: 1px solid #070707;
-  
+}
+
+.classic-light button:hover {
+  background-color: #e2e6ea;
+  color: #212529;
 }
 
 /* === THEME: CLASSIC DARK === */
@@ -43,12 +56,17 @@ input, select, button {
   color: #e9ecef;
 }
 
-.classic-dark input,
+
 .classic-dark select,
 .classic-dark button {
   background-color: #333;
   color: #e9ecef;
   border: 1px solid #495057;
+}
+
+.classic-dark button:hover {
+  background-color: #444;
+  color: #fff;
 }
 
 /* === THEME: CLASSIC BLUE === */
@@ -63,12 +81,17 @@ input, select, button {
   color: #ffffff;
 }
 
-.classic-blue input,
+
 .classic-blue select,
 .classic-blue button {
   background-color: #ffffff;
   color: #003366;
   border: 1px solid #007bff;
+}
+
+.classic-blue button:hover {
+  background-color: #e2e6ea;
+  color: #003366;
 }
 
 /* === THEME: ANIMATED GLOW === */
@@ -84,13 +107,18 @@ input, select, button {
   box-shadow: 0 0 15px #0ff;
 }
 
-.anim-glow input,
+
 .anim-glow select,
 .anim-glow button {
   background-color: #202020;
   color: #ffffff;
   border: 1px solid #0ff;
   box-shadow: 0 0 10px #0ff;
+}
+
+.anim-glow button:hover {
+  background-color: #0ff;
+  color: #000;
 }
 
 /* === THEME: ANIMATED SLIDE === */
@@ -105,7 +133,7 @@ input, select, button {
   color: #fff;
 }
 
-.anim-slide input,
+
 .anim-slide select,
 .anim-slide button {
   background-color: #ffffff;
@@ -116,6 +144,8 @@ input, select, button {
 
 .anim-slide button:hover {
   transform: translateX(4px);
+  background-color: #ffe2da;
+  color: #3a1c71;
 }
 
 /* === THEME: ANIMATED FADE === */
@@ -131,13 +161,18 @@ input, select, button {
   animation: fadeIn 1s ease-in-out;
 }
 
-.anim-fade input,
+
 .anim-fade select,
 .anim-fade button {
   background-color: #2c3e50;
   color: #ecf0f1;
   border: 1px solid #34495e;
   animation: fadeIn 0.5s ease-in-out;
+}
+
+.anim-fade button:hover {
+  background-color: #3a4a5d;
+  color: #fff;
 }
 
 /* === ANIMATIONS === */
