@@ -69,7 +69,7 @@ const Navbar = () => {
               <Link className="nav-link" to="/">Home</Link>
             </li>
 
-<<<<<<< HEAD
+
             <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle" to="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dashboard
@@ -81,7 +81,7 @@ const Navbar = () => {
                 <li><Link className="dropdown-item" to="/reminders">Reminders</Link></li>
               </ul>
             </li>
-=======
+
             {isAuthenticated && (
               <>
                 <li className="nav-item dropdown">
@@ -97,7 +97,6 @@ const Navbar = () => {
                     <li><Link className="dropdown-item" to="/generate-report">Generate Report</Link></li>
                   </ul>
                 </li>
->>>>>>> e5e554ead1fbc55a53cfb6a72e120c334ced6e87
 
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
