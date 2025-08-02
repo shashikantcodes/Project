@@ -1,10 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Routes, Route } from "react-router-dom";
-
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import { Routes, Route } from "react-router-dom"
 
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
@@ -14,138 +11,34 @@ import SignUp from './components/auth/Signup';
 import ForgotPassword from './components/auth/ForgotPassword';
 import VerifyOtp from './components/auth/VerifyOtp';
 import UpdatePassword from './components/auth/UpdatePassword';
-import UserDashboard from './components/user/UserDashboard';
 import DashboardHome from './pages/dashboardHome/DashboardHome';
 import Notes from './pages/notes/Notes';
 import Reminders from './pages/reminder/Reminder';
 import CreateTask from './pages/createTask/CreateTask';
 import GenerateReport from './pages/generateReport/GenerateReport';
+import Contact from './pages/ContactPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
-  return (
-    <AuthProvider>
-      <Navbar />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        
-        {/* Guest Only Routes (redirect authenticated users) */}
-        <Route 
-          path="/login" 
-          element={
-            <ProtectedRoute requireAuth={false}>
-              <Login />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/signup" 
-          element={
-            <ProtectedRoute requireAuth={false}>
-              <SignUp />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/forgot/password" 
-          element={
-            <ProtectedRoute requireAuth={false}>
-              <ForgotPassword />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/otp/verify" 
-          element={
-            <ProtectedRoute requireAuth={false}>
-              <VerifyOtp />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/password/update" 
-          element={
-            <ProtectedRoute requireAuth={false}>
-              <UpdatePassword />
-            </ProtectedRoute>
-          } 
-        />
+  return (<>
+    <Navbar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/forgot/password" element={<ForgotPassword />} />
+      <Route path="/otp/verify" element={<VerifyOtp />} />
+      <Route path="/password/update" element={<UpdatePassword />} />
+      <Route path="/dashboard-home" element={<DashboardHome />} />
+      <Route path="/notes" element={<Notes />} />
+      <Route path="/reminders" element={<Reminders />} />
+      <Route path="/create-task" element={<CreateTask />} />
+      <Route path="/generate-report" element={<GenerateReport />} />
+      <Route path="/contact" element={<ContactPage />} />
 
-        {/* Protected Routes (require authentication) */}
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <UserDashboard />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/dashboard-home" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <DashboardHome />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/notes" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <Notes />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/reminders" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <Reminders />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/create-task" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <CreateTask />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/generate-report" 
-          element={
-            <ProtectedRoute requireAuth={true}>
-              <GenerateReport />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* Unauthorized Route */}
-        <Route 
-          path="/unauthorized" 
-          element={
-            <div className="container py-5 text-center">
-              <h2>Unauthorized Access</h2>
-              <p>You don't have permission to access this page.</p>
-            </div>
-          } 
-        />
-
-        {/* 404 Route */}
-        <Route 
-          path="*" 
-          element={
-            <div className="container py-5 text-center">
-              <h2>Page Not Found</h2>
-              <p>The page you're looking for doesn't exist.</p>
-            </div>
-          } 
-        />
-      </Routes>
-      <Footer />
-    </AuthProvider>
-  );
+    </Routes>
+    <Footer />
+  </>);
 }
 
 export default App;

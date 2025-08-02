@@ -1,11 +1,10 @@
 /* === GLOBAL RESET === */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
-
-
 
 /* === BUTTON BASE STYLE (For Login/Signup) === */
 .btn-theme {
@@ -31,7 +30,6 @@ body, html {
   color: #212529;
 }
 
-
 .classic-light select,
 .classic-light button {
   background-color: #ffffff;
@@ -56,7 +54,6 @@ body, html {
   color: #e9ecef;
 }
 
-
 .classic-dark select,
 .classic-dark button {
   background-color: #333;
@@ -80,7 +77,6 @@ body, html {
   background-color: #007bff;
   color: #ffffff;
 }
-
 
 .classic-blue select,
 .classic-blue button {
@@ -107,7 +103,6 @@ body, html {
   box-shadow: 0 0 15px #0ff;
 }
 
-
 .anim-glow select,
 .anim-glow button {
   background-color: #202020;
@@ -132,7 +127,6 @@ body, html {
   background: linear-gradient(90deg, #f2709c, #ff9472);
   color: #fff;
 }
-
 
 .anim-slide select,
 .anim-slide button {
@@ -161,7 +155,6 @@ body, html {
   animation: fadeIn 1s ease-in-out;
 }
 
-
 .anim-fade select,
 .anim-fade button {
   background-color: #2c3e50;
@@ -177,6 +170,12 @@ body, html {
 
 /* === ANIMATIONS === */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
