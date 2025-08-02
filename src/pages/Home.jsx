@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../index.css'; // Tailwind styles
@@ -7,9 +6,7 @@ import '../index.css'; // Tailwind styles
 const Home = () => {
   return (
     <>
-      <Navbar />
-
-      <section className="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center">
+      <main className="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center">
         <div className="container py-5">
           <div className="row align-items-center">
             {/* Left Content */}
@@ -37,7 +34,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </main>
     </>
   );
 };
