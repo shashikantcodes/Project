@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Navbar.css';
-import { FaSearch, FaSignInAlt, FaPalette } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaSearch, FaSignInAlt, FaPalette, FaUser, FaSignOutAlt, FaUserPlus } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
 
 const themes = [
   { id: 'classic-light', label: 'Classic Light' },
@@ -14,6 +16,7 @@ const themes = [
 ];
 
 const Navbar = () => {
+  const { isAuthenticated, user, logout } = useAuth();
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('selectedTheme') || 'classic-light';
   });
@@ -33,10 +36,18 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm sticky-top" data-bs-theme="dark">
       <div className="container-fluid">
-        <a className="navbar-brand fw-bold" href="/">🔍 QuickDesk</a>
+        <Link className="navbar-brand fw-bold" to="/">🔍 QuickDesk</Link>
 
         <button
           className="navbar-toggler"
@@ -53,33 +64,38 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <Link className="nav-link" to="/">Home</Link>
             </li>
 
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dashboard
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
-                <li><a className="dropdown-item" href="/dashboard/overview">Overview</a></li>
-                <li><a className="dropdown-item" href="/dashboard/stats">Stats</a></li>
-                <li><a className="dropdown-item" href="/dashboard/reports">Reports</a></li>
-              </ul>
-            </li>
+            {isAuthenticated && (
+              <>
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="dashboardDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dashboard
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
+                    <li><Link className="dropdown-item" to="/dashboard">My Dashboard</Link></li>
+                    <li><Link className="dropdown-item" to="/dashboard/overview">Overview</Link></li>
+                    <li><Link className="dropdown-item" to="/dashboard/stats">Stats</Link></li>
+                    <li><Link className="dropdown-item" to="/dashboard/reports">Reports</Link></li>
+                  </ul>
+                </li>
 
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Features
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="featuresDropdown">
-                <li><a className="dropdown-item" href="/features/ai">AI Tools</a></li>
-                <li><a className="dropdown-item" href="/features/integrations">Integrations</a></li>
-                <li><a className="dropdown-item" href="/features/automation">Automation</a></li>
-              </ul>
-            </li>
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Features
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="featuresDropdown">
+                    <li><Link className="dropdown-item" to="/features/ai">AI Tools</Link></li>
+                    <li><Link className="dropdown-item" to="/features/integrations">Integrations</Link></li>
+                    <li><Link className="dropdown-item" to="/features/automation">Automation</Link></li>
+                  </ul>
+                </li>
+              </>
+            )}
 
             <li className="nav-item">
-              <a className="nav-link" href="/contact">Contact</a>
+              <Link className="nav-link" to="/contact">Contact</Link>
             </li>
           </ul>
 
@@ -111,9 +127,53 @@ const Navbar = () => {
               </select>
             </div>
 
-            <a className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-1" href="/login">
-              <FaSignInAlt /> Login
-            </a>
+            {isAuthenticated ? (
+              <div className="dropdown">
+                <button
+                  className="btn btn-light btn-sm dropdown-toggle d-flex align-items-center gap-1"
+                  type="button"
+                  id="userDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <FaUser />
+                  {user?.name || 'User'}
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li>
+                    <h6 className="dropdown-header">
+                      {user?.name}
+                      <br />
+                      <small className="text-muted">{user?.email}</small>
+                    </h6>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <Link className="dropdown-item d-flex align-items-center gap-2" to="/dashboard">
+                      <FaUser /> Dashboard
+                    </Link>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <button 
+                      className="dropdown-item d-flex align-items-center gap-2 text-danger"
+                      onClick={handleLogout}
+                    >
+                      <FaSignOutAlt /> Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="d-flex gap-2">
+                <Link className="btn btn-outline-light btn-sm d-flex align-items-center gap-1" to="/login">
+                  <FaSignInAlt /> Login
+                </Link>
+                <Link className="btn btn-light btn-sm d-flex align-items-center gap-1" to="/signup">
+                  <FaUserPlus /> Sign Up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import { useNavigate, Link } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 // ✅ Joi Schema
 const schema = Joi.object({
@@ -26,6 +28,9 @@ const schema = Joi.object({
 
 function SignUp({ theme }) {
   const navigate = useNavigate();
+  const { register: registerUser, isLoading: authLoading, error: authError, clearError } = useAuth();
+  const [localError, setLocalError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const {
     register,
@@ -36,10 +41,36 @@ function SignUp({ theme }) {
     mode: "onTouched",
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Data Submitted:", data);
-    navigate("/login");
+  // Clear errors when component mounts
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
+
+  const onSubmit = async (data) => {
+    setLocalError("");
+    setSuccess("");
+
+    try {
+      const response = await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword
+      });
+
+      if (response.success) {
+        setSuccess(response.message);
+        // Redirect to home after successful registration
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      }
+    } catch (err) {
+      setLocalError(err.message || "Registration failed. Please try again.");
+    }
   };
+
+  const displayError = authError || localError;
 
   return (
     <div
@@ -50,6 +81,20 @@ function SignUp({ theme }) {
         <FaUserPlus className="text-theme" fontSize="1.5rem" />
         <h2 className="fw-bold text-theme">Create Your Account</h2>
       </div>
+
+      {/* Error Alert */}
+      {displayError && (
+        <div className="alert alert-danger" role="alert">
+          {displayError}
+        </div>
+      )}
+
+      {/* Success Alert */}
+      {success && (
+        <div className="alert alert-success" role="alert">
+          {success}
+        </div>
+      )}
 
 
 
@@ -114,9 +159,22 @@ function SignUp({ theme }) {
 
         {/* Submit Button */}
         <div className="col-12 d-flex justify-content-center">
-          <button type="submit" className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2">
-            <span>Sign Up</span>
-            <FaUserPlus />
+          <button 
+            type="submit" 
+            className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2"
+            disabled={authLoading}
+          >
+            {authLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>Creating Account...</span>
+              </>
+            ) : (
+              <>
+                <span>Sign Up</span>
+                <FaUserPlus />
+              </>
+            )}
           </button>
         </div>
 
