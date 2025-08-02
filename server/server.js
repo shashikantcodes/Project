@@ -21,7 +21,7 @@ const app = express();
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://yourfrontenddomain.com'] // Add your frontend domain in production
-    : ['http://localhost:3000', 'http://localhost:5173'], // Common development ports
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'], // Common development ports
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useMemo, useCallback } from 'react';
 import { authAPI, authUtils } from '../services/api';
 
 // Initial state
@@ -127,7 +127,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Login function
-  const login = async (credentials) => {
+  const login = useCallback(async (credentials) => {
     try {
       dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: true });
       dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR });
@@ -151,10 +151,10 @@ export const AuthProvider = ({ children }) => {
       });
       throw error;
     }
-  };
+  }, []);
 
   // Register function
-  const register = async (userData) => {
+  const register = useCallback(async (userData) => {
     try {
       dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: true });
       dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR });
@@ -178,10 +178,10 @@ export const AuthProvider = ({ children }) => {
       });
       throw error;
     }
-  };
+  }, []);
 
   // Logout function
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await authAPI.logout();
     } catch (error) {
@@ -189,29 +189,29 @@ export const AuthProvider = ({ children }) => {
     } finally {
       dispatch({ type: AUTH_ACTIONS.LOGOUT });
     }
-  };
+  }, []);
 
   // Update user function
-  const updateUser = (userData) => {
+  const updateUser = useCallback((userData) => {
     dispatch({
       type: AUTH_ACTIONS.UPDATE_USER,
       payload: userData
     });
-  };
+  }, []);
 
   // Clear error function
-  const clearError = () => {
+  const clearError = useCallback(() => {
     dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR });
-  };
+  }, []);
 
-  const value = {
+  const value = useMemo(() => ({
     ...state,
     login,
     register,
     logout,
     updateUser,
     clearError
-  };
+  }), [state, login, register, logout, updateUser, clearError]);
 
   return (
     <AuthContext.Provider value={value}>
