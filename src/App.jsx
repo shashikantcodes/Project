@@ -16,6 +16,8 @@ import Notes from './pages/notes/Notes';
 import Reminders from './pages/reminder/Reminder';
 import CreateTask from './pages/createTask/CreateTask';
 import GenerateReport from './pages/generateReport/GenerateReport';
+import Contact from './pages/ContactPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (<>
@@ -32,6 +34,8 @@ function App() {
       <Route path="/reminders" element={<Reminders />} />
       <Route path="/create-task" element={<CreateTask />} />
       <Route path="/generate-report" element={<GenerateReport />} />
+      <Route path="/contact" element={<ContactPage />} />
+
     </Routes>
     <Footer />
   </>);
