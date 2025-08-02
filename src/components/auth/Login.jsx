@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
 import { FaArrowRotateRight } from "react-icons/fa6";
 import { FaUserPlus } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const schema = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
@@ -19,6 +21,9 @@ const schema = Joi.object({
 
 function Login({ theme }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isLoading: authLoading, error: authError, clearError } = useAuth();
+  const [localError, setLocalError] = useState("");
 
   const {
     register,
@@ -29,10 +34,29 @@ function Login({ theme }) {
     mode: "onTouched",
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Data Submitted:", data);
-    navigate("/signup");
+  // Clear errors when component mounts
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
+
+  const onSubmit = async (data) => {
+    setLocalError("");
+    
+    try {
+      await login({
+        email: data.email,
+        password: data.password
+      });
+
+      // Redirect to intended page or home
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    } catch (err) {
+      setLocalError(err.message || "Login failed. Please try again.");
+    }
   };
+
+  const displayError = authError || localError;
 
   return (
     <div
@@ -45,6 +69,13 @@ function Login({ theme }) {
         <FaUserPlus fontSize="1.5rem" />
         <h2 className="fw-bold text-theme">Login Account</h2>
       </div>
+
+      {/* Error Alert */}
+      {displayError && (
+        <div className="alert alert-danger" role="alert">
+          {displayError}
+        </div>
+      )}
      
 
 
@@ -85,9 +116,22 @@ function Login({ theme }) {
 
         {/* Submit Button */}
         <div className="col-12 d-flex justify-content-center">
-          <button type="submit" className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2">
-            <span>Login</span>
-            <FaUserPlus />
+          <button 
+            type="submit" 
+            className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2"
+            disabled={authLoading}
+          >
+            {authLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>Logging in...</span>
+              </>
+            ) : (
+              <>
+                <span>Login</span>
+                <IoMdLogIn />
+              </>
+            )}
           </button>
         </div>
 

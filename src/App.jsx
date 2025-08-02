@@ -17,6 +17,7 @@ import Reminders from './pages/reminder/Reminder';
 import CreateTask from './pages/createTask/CreateTask';
 import GenerateReport from './pages/generateReport/GenerateReport';
 
+
 function App() {
   return (<>
     <Navbar />
@@ -32,6 +33,7 @@ function App() {
       <Route path="/reminders" element={<Reminders />} />
       <Route path="/create-task" element={<CreateTask />} />
       <Route path="/generate-report" element={<GenerateReport />} />
+      
     </Routes>
     <Footer />
   </>);
