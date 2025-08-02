@@ -3,8 +3,9 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import { useNavigate, Link } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
-import { FaArrowRotateRight } from "react-icons/fa6"; // ✅ fixed import
+import { FaArrowRotateRight } from "react-icons/fa6";
 
+// Validation Schema
 const schema = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
     "string.empty": "Email is required!",
@@ -16,7 +17,7 @@ const schema = Joi.object({
   }),
 });
 
-function Login() {
+function Login({ theme }) {
   const navigate = useNavigate();
 
   const {
@@ -29,16 +30,18 @@ function Login() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("Login Data:", data);
     navigate("/dashboard");
   };
 
   return (
     <div
-      className="login d-flex flex-column align-items-center justify-content-center bg-dark text-light"
+      className={`login d-flex flex-column align-items-center justify-content-center ${
+        theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
+      }`}
       style={{ height: "90.5vh" }}
     >
-      <div className="text-center mb-3">
+      <div className="text-center mb-4">
         <FaArrowRotateRight size={32} />
         <h2 className="fw-bold mt-2">Login to Your Account</h2>
       </div>
@@ -46,13 +49,14 @@ function Login() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="bg-light text-dark shadow p-4 rounded"
-        style={{ width: "100%", maxWidth: "26rem" }}
+        className={`shadow p-4 rounded w-100 ${
+          theme === "dark" ? "bg-secondary text-light" : "bg-white text-dark"
+        }`}
+        style={{ maxWidth: "26rem" }}
       >
+        {/* Email Field */}
         <div className="mb-3">
-          <label htmlFor="email" className="form-label fw-semibold">
-            Email:
-          </label>
+          <label htmlFor="email" className="form-label fw-semibold">Email:</label>
           <input
             {...register("email")}
             type="email"
@@ -61,15 +65,12 @@ function Login() {
             placeholder="Enter your email"
             autoComplete="off"
           />
-          {errors.email && (
-            <div className="invalid-feedback">{errors.email.message}</div>
-          )}
+          {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
         </div>
 
+        {/* Password Field */}
         <div className="mb-3">
-          <label htmlFor="password" className="form-label fw-semibold">
-            Password:
-          </label>
+          <label htmlFor="password" className="form-label fw-semibold">Password:</label>
           <input
             {...register("password")}
             type="password"
@@ -78,22 +79,24 @@ function Login() {
             placeholder="Enter your password"
             autoComplete="off"
           />
-          {errors.password && (
-            <div className="invalid-feedback">{errors.password.message}</div>
-          )}
+          {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
         </div>
 
+        {/* Submit Button */}
         <div className="d-grid mb-3">
           <button
             type="submit"
-            className="btn btn-theme d-flex align-items-center justify-content-center gap-2"
+            className={`btn w-100 d-flex align-items-center justify-content-center gap-2 ${
+              theme === "dark" ? "btn-light text-dark" : "btn-dark text-light"
+            }`}
           >
             <span>Login</span>
             <IoMdLogIn />
           </button>
         </div>
 
-        <div className="d-flex justify-content-between">
+        {/* Links */}
+        <div className="d-flex justify-content-between small">
           <Link to="/forgot/password" className="text-decoration-none text-primary">
             Forgot Password?
           </Link>

@@ -1,102 +1,83 @@
-import React, { useState } from 'react';
-import { IoIosEye, IoIosEyeOff, IoMdArrowBack } from 'react-icons/io';
-import { GrUpdate } from 'react-icons/gr';
-import { useForm } from 'react-hook-form';
-import Joi from 'joi';
-import { joiResolver } from '@hookform/resolvers/joi';
-import { Link, useNavigate } from 'react-router-dom';
+// PasswordUpdate.jsx
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import Joi from "joi";
+import { IoMdArrowBack, IoMdKey } from "react-icons/io";
 
-function UpdatePassword() {
-  const [showNewPassword, setShowNewPassword] = useState(false);
+const schema = Joi.object({
+  password: Joi.string().min(6).required().messages({
+    "string.empty": "Password is required!",
+    "string.min": "Password must be at least 6 characters!",
+  }),
+  confirmPassword: Joi.any().valid(Joi.ref("password")).required().messages({
+    "any.only": "Passwords do not match!",
+    "any.required": "Please confirm your password!",
+  }),
+});
+
+function PasswordUpdate() {
   const navigate = useNavigate();
-
-  const schema = Joi.object({
-    newPassword: Joi.string().min(6).required().messages({
-      'string.empty': 'New Password is required!',
-      'string.min': 'Password must be at least 6 characters.',
-    }),
-  });
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted },
-  } = useForm({
-    resolver: joiResolver(schema),
-  });
+    formState: { errors },
+  } = useForm({ resolver: joiResolver(schema), mode: "onTouched" });
 
   const onSubmit = (data) => {
-    console.log('Password Updated:', data);
-    navigate('/login');
+    console.log("Password Updated:", data);
+    navigate("/login");
   };
 
   return (
-    <div
-      className="login d-flex flex-column align-items-center justify-content-center theme-bg py-5"
-      style={{ minHeight: '90vh' }}
-    >
-      <div className="text-center mb-4">
-        <GrUpdate size={40} className="text-theme mb-2" />
-        <h3 className="fw-bold text-dark">Update Your Password</h3>
+    <div className="login d-flex flex-column align-items-center justify-content-center p-3" style={{ height: "90.7vh" }}>
+      <div className="d-flex flex-column align-items-center mb-3">
+        <IoMdKey className="text-theme" fontSize="1.5rem" />
+        <h2 className="fw-bold text-theme">Reset Your Password</h2>
       </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="bg-white shadow-lg p-4 rounded w-100"
-        style={{ maxWidth: '420px' }}
-      >
-        {/* New Password Label and Input */}
-        <div className="mb-3 position-relative">
-          <label
-            htmlFor="newPassword"
-            className="form-label fw-bold text-theme"
-            style={{ fontSize: '1rem', fontWeight: '600' }}
-          >
-            New Password
-          </label>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="d-flex justify-content-center gap-2 row shadow-lg p-3 bg-body-tertiary rounded" style={{ width: "26rem" }}>
+        <div>
+          <label htmlFor="password" className="form-label">New Password:</label>
           <input
-            id="newPassword"
-            type={showNewPassword ? 'text' : 'password'}
+            {...register("password")}
+            type="password"
+            id="password"
+            className={`form-control ${errors.password ? "is-invalid" : ""}`}
             placeholder="Enter new password"
-            autoComplete="off"
-            className={`form-control ${isSubmitted && errors.newPassword ? 'is-invalid' : ''}`}
-            {...register('newPassword')}
           />
-          {!errors.newPassword && (
-            <span
-              onClick={() => setShowNewPassword(!showNewPassword)}
-              className="position-absolute top-50 end-0 translate-middle-y pe-3"
-              style={{ cursor: 'pointer' }}
-            >
-              {showNewPassword ? <IoIosEyeOff /> : <IoIosEye />}
-            </span>
-          )}
-          {errors.newPassword && (
-            <div className="invalid-feedback">{errors.newPassword.message}</div>
-          )}
+          {errors.password && <div className="invalid-feedback ms-1">{errors.password.message}</div>}
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="btn btn-theme w-100 mt-3 d-flex align-items-center justify-content-center gap-2"
-        >
-          <GrUpdate />
-          <span>Update Password</span>
-        </button>
+        <div>
+          <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
+          <input
+            {...register("confirmPassword")}
+            type="password"
+            id="confirmPassword"
+            className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
+            placeholder="Re-enter new password"
+          />
+          {errors.confirmPassword && <div className="invalid-feedback ms-1">{errors.confirmPassword.message}</div>}
+        </div>
 
-        {/* Back to Login Button */}
-        <Link
-          to="/login"
-          className="btn btn-outline-theme w-100 mt-3 d-flex align-items-center justify-content-center gap-2"
-        >
-          <IoMdArrowBack />
-          <span>Back to Login</span>
-        </Link>
+        <div className="w-100 d-flex justify-content-center mb-2">
+          <button type="submit" className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2">
+            <span>Update Password</span>
+            <IoMdKey />
+          </button>
+        </div>
+
+        <div className="w-100 d-flex justify-content-center">
+          <button type="button" className="btn btn-outline-theme w-100 d-flex align-items-center justify-content-center gap-2" onClick={() => navigate("/login")}>
+            <IoMdArrowBack />
+            <span>Back to Login</span>
+          </button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default UpdatePassword;
+export default PasswordUpdate;

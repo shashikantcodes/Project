@@ -4,6 +4,7 @@ import Joi from "joi";
 import { useNavigate, Link } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa6";
 
+// ✅ Joi Schema
 const schema = Joi.object({
   name: Joi.string().min(3).required().messages({
     "string.empty": "Name is required!",
@@ -23,7 +24,7 @@ const schema = Joi.object({
   }),
 });
 
-function SignUp() {
+function SignUp({ theme }) {
   const navigate = useNavigate();
 
   const {
@@ -36,111 +37,92 @@ function SignUp() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("Form Data Submitted:", data);
     navigate("/login");
   };
 
   return (
     <div
-      className="signup d-flex flex-column align-items-center justify-content-center p-3 bg-dark text-light"
-      style={{ height: "90.7vh" }}
+      className={`signup d-flex flex-column align-items-center justify-content-center p-3 bg-${theme} text-${theme === "dark" ? "light" : "dark"}`}
+      style={{ height: "100vh" }}
     >
-      <div className="d-flex flex-column align-items-center">
-        <FaUserPlus color="white" fontSize="1.5rem" />
-        <h2 className="fw-bold text-light">Create Your Account</h2>
+      {/* Header */}
+      <div className="text-center mb-3">
+        <FaUserPlus fontSize="1.5rem" />
+        <h2 className="fw-bold mt-2">Create Your Account</h2>
       </div>
 
+      {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="d-flex justify-content-center bg-light text-dark needs-validation gap-2 row cols shadow-lg p-3 rounded mb-5"
-        style={{ width: "26rem" }}
+        className={`bg-${theme === "dark" ? "secondary" : "light"} text-${theme === "dark" ? "light" : "dark"} rounded shadow-lg p-4 row g-3`}
+        style={{ width: "100%", maxWidth: "420px" }}
       >
-        <div>
-          <label htmlFor="name">Name:</label>
+        {/* Name */}
+        <div className="col-12">
+          <label htmlFor="name" className="form-label">Name</label>
           <input
             {...register("name")}
             type="text"
             id="name"
             className={`form-control ${errors.name ? "is-invalid" : ""}`}
             placeholder="Enter your full name"
-            autoComplete="off"
           />
-          {errors.name && (
-            <div className="invalid-feedback ms-1">
-              {errors.name.message}
-            </div>
-          )}
+          {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
         </div>
 
-        <div>
-          <label htmlFor="email">Email:</label>
+        {/* Email */}
+        <div className="col-12">
+          <label htmlFor="email" className="form-label">Email</label>
           <input
             {...register("email")}
             type="email"
             id="email"
             className={`form-control ${errors.email ? "is-invalid" : ""}`}
             placeholder="Enter your email"
-            autoComplete="off"
           />
-          {errors.email && (
-            <div className="invalid-feedback ms-1">
-              {errors.email.message}
-            </div>
-          )}
+          {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
+        {/* Password */}
+        <div className="col-12">
+          <label htmlFor="password" className="form-label">Password</label>
           <input
             {...register("password")}
             type="password"
             id="password"
             className={`form-control ${errors.password ? "is-invalid" : ""}`}
             placeholder="Enter your password"
-            autoComplete="off"
           />
-          {errors.password && (
-            <div className="invalid-feedback ms-1">
-              {errors.password.message}
-            </div>
-          )}
+          {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
         </div>
 
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+        {/* Confirm Password */}
+        <div className="col-12">
+          <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
           <input
             {...register("confirmPassword")}
             type="password"
             id="confirmPassword"
-            className={`form-control ${errors.confirmPassword ? "is-invalid" : ""
-              }`}
+            className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
             placeholder="Re-enter your password"
-            autoComplete="off"
           />
-          {errors.confirmPassword && (
-            <div className="invalid-feedback ms-1">
-              {errors.confirmPassword.message}
-            </div>
-          )}
+          {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword.message}</div>}
         </div>
 
-        <div className="w-100 d-flex justify-content-center mb-2">
-          <button
-            type="submit"
-            className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2"
-          >
-            <span>SignUp</span>
+        {/* Submit Button */}
+        <div className="col-12 d-flex justify-content-center">
+          <button type="submit" className="btn btn-theme w-100 d-flex align-items-center justify-content-center gap-2">
+            <span>Sign Up</span>
             <FaUserPlus />
           </button>
-
         </div>
 
-        <div className="w-100 d-flex justify-content-center">
-          <span className="me-2">Already have an account?</span>
-          <Link to="/login" className="text-decoration-none text-primary">
-            Login
-          </Link>
+        {/* Link to Login */}
+        <div className="col-12 text-center">
+          <span>Already have an account? </span>
+          <Link to="/login" className="text-primary text-decoration-none">Login</Link>
         </div>
       </form>
     </div>
