@@ -27,7 +27,8 @@ input, select, button {
 .classic-light button {
   background-color: #ffffff;
   color: #212529;
-  border: 1px solid #ced4da;
+  border: 1px solid #070707;
+  
 }
 
 /* === THEME: CLASSIC DARK === */
