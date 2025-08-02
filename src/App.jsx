@@ -1,19 +1,15 @@
-import React from 'react'
-import Navbar from './components/Navbar'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+import Home from './pages/Home';
 
 const App = () => {
   return (
-<<<<<<< HEAD
-    <div>
-      <h1>hello world</h1>
-  
-=======
-    <div>Hey this is Waste Reporter app
-      <Navbar />
->>>>>>> 6779ac173b8433ec376cd6bf0ac4556f62f1272e
-    </div>
-      
-  )
-}
+    <>
+      <Home />
+    </>
+  );
+};
 
-export default App
+export default App;
