@@ -62,9 +62,10 @@ const Navbar = () => {
                 Dashboard
               </Link>
               <ul className="dropdown-menu" aria-labelledby="dashboardDropdown">
-                <li><Link className="dropdown-item" to="/dashboard/overview">Overview</Link></li>
-                <li><Link className="dropdown-item" to="/dashboard/stats">Stats</Link></li>
-                <li><Link className="dropdown-item" to="/dashboard/reports">Reports</Link></li>
+                <li><Link className="dropdown-item" to="/notes">Notes</Link></li>
+                <li><Link className="dropdown-item" to="/create-task">Create Task</Link></li>
+                <li><Link className="dropdown-item" to="/generate-report">Generate Report</Link></li>
+                <li><Link className="dropdown-item" to="/reminders">Reminders</Link></li>
               </ul>
             </li>
 

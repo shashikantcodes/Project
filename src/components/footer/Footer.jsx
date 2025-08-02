@@ -21,7 +21,6 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li><Link to="/" className="text-decoration-none">Home</Link></li>
               <li><Link to="/dashboard-home" className="text-decoration-none">Dashboard</Link>  </li>
-
               <li><Link to="#" className="text-decoration-none">AI Tools</Link></li>
               <li><Link to="#" className="text-decoration-none">Contact</Link></li>
             </ul>
@@ -31,10 +30,10 @@ const Footer = () => {
           <div className="col-md-4 mb-3">
             <h6 className="fw-bold">Follow Us</h6>
             <div className="d-flex gap-3 justify-content-md-start justify-content-center">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-reset"><FaFacebook /></a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="text-reset"><FaTwitter /></a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-reset"><FaLinkedin /></a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-reset"><FaInstagram /></a>
+              <Link to="https://facebook.com" target="_blank" rel="noreferrer" className="text-reset"><FaFacebook /></Link>
+              <Link to="https://twitter.com" target="_blank" rel="noreferrer" className="text-reset"><FaTwitter /></Link>
+              <Link to="https://linkedin.com" target="_blank" rel="noreferrer" className="text-reset"><FaLinkedin /></Link>
+              <Link to="https://instagram.com" target="_blank" rel="noreferrer" className="text-reset"><FaInstagram /></Link>
             </div>
           </div>
         </div>
