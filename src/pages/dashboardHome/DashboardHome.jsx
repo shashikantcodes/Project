@@ -1,84 +1,217 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
+// Utility function to load from localStorage
+const loadData = (key, defaultValue) => {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : defaultValue;
+};
 
 const DashboardHome = () => {
-    const userName = "godhand"; // Replace with dynamic data later if needed
-    const navigate = useNavigate();
+    const [tasks, setTasks] = useState(() => loadData("tasks", []));
+    const [reports, setReports] = useState(() => loadData("reports", []));
+    const [reminders, setReminders] = useState(() => loadData("reminders", []));
+    const [logs, setLogs] = useState(() => loadData("logs", []));
+    const [taskInput, setTaskInput] = useState("");
+    const [reportInput, setReportInput] = useState("");
+    const [reminderInput, setReminderInput] = useState("");
+    const [aiInput, setAiInput] = useState("");
+    const [aiSuggestion, setAiSuggestion] = useState("");
+
+    // Save to localStorage when data changes
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
+
+    useEffect(() => {
+        localStorage.setItem("reports", JSON.stringify(reports));
+    }, [reports]);
+
+    useEffect(() => {
+        localStorage.setItem("reminders", JSON.stringify(reminders));
+    }, [reminders]);
+
+    useEffect(() => {
+        localStorage.setItem("logs", JSON.stringify(logs));
+    }, [logs]);
+
+    // Generic add function
+    const addItem = (type, input, setInput, data, setData) => {
+        if (!input.trim()) return;
+        const item = { id: Date.now(), text: input };
+        const updated = [...data, item];
+        setData(updated);
+        setInput("");
+        setLogs(prev => [...prev, `➕ ${type} added: "${input}"`]);
+    };
+
+    // AI prompt
+    const handleAiPrompt = () => {
+        if (!aiInput.trim()) return;
+        const mock = `Suggested Task: "${aiInput}" (reviewed by AI)`;
+        setAiSuggestion(mock);
+        setLogs(prev => [...prev, `🤖 AI suggested: "${mock}"`]);
+        setAiInput("");
+    };
+
+    const addAiSuggestionToTasks = () => {
+        if (aiSuggestion) {
+            const task = { id: Date.now(), text: aiSuggestion };
+            const updated = [...tasks, task];
+            setTasks(updated);
+            setLogs(prev => [...prev, `✅ Task added: "${aiSuggestion}"`]);
+            setAiSuggestion("");
+        }
+    };
 
     return (
-        <article className="py-5 px-3 bg-light text-dark dark:bg-black dark:text-white min-vh-100">
-            <div className="container">
-                {/* Welcome Section */}
-                <section className="mb-5">
-                    <h2 className="fw-bold">Welcome back, {userName}! 👋</h2>
-                    <p className="text-muted fs-5">
-                        Here’s what you can do with <strong>Quick Desk AI</strong> today.
-                    </p>
-                </section>
+        <div className="container py-4">
+            <h2 className="mb-4">📊 Dashboard Home</h2>
+            <div className="row g-4">
+                {/* Create Task */}
+                <div className="col-md-4">
+                    <div className="card shadow">
+                        <div className="card-header">📝 Create Task</div>
+                        <div className="card-body">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter a task..."
+                                value={taskInput}
+                                onChange={(e) => setTaskInput(e.target.value)}
+                            />
+                            <button
+                                className="btn btn-primary mt-2"
+                                onClick={() => addItem("Task", taskInput, setTaskInput, tasks, setTasks)}
+                            >
+                                Add Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                {/* Quick Actions */}
-                <section className="row g-4 mb-5">
-                    <div className="col-md-4">
-                        <button
-                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
-                            onClick={() => navigate("/notes")}
-                        >
-                            📝 Add Note
-                        </button>
+                {/* Generate Report */}
+                <div className="col-md-4">
+                    <div className="card shadow">
+                        <div className="card-header">📄 Generate Report</div>
+                        <div className="card-body">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Write a report summary..."
+                                value={reportInput}
+                                onChange={(e) => setReportInput(e.target.value)}
+                            />
+                            <button
+                                className="btn btn-success mt-2"
+                                onClick={() => addItem("Report", reportInput, setReportInput, reports, setReports)}
+                            >
+                                Save Report
+                            </button>
+                        </div>
                     </div>
-                    <div className="col-md-4">
-                        <button
-                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
-                            onClick={() => navigate("/create-task")}
-                        >
-                            ✅ Create Task
-                        </button>
-                    </div>
-                    <div className="col-md-4">
-                        <button
-                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
-                            onClick={() => navigate("/generate-report")}
-                        >
-                            📊 Generate Report
-                        </button>
-                    </div>
+                </div>
 
-                    <div className="col-md-4">
-                        <button
-                            className="btn btn-warning w-100 py-3 rounded-3 shadow-sm"
-                            onClick={() => navigate("/reminders")}
-                        >
-                            🔔 Reminders
-                        </button>
+                {/* Reminders */}
+                <div className="col-md-4">
+                    <div className="card shadow">
+                        <div className="card-header">⏰ Add Reminder</div>
+                        <div className="card-body">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Set a reminder..."
+                                value={reminderInput}
+                                onChange={(e) => setReminderInput(e.target.value)}
+                            />
+                            <button
+                                className="btn btn-warning mt-2"
+                                onClick={() => addItem("Reminder", reminderInput, setReminderInput, reminders, setReminders)}
+                            >
+                                Set Reminder
+                            </button>
+                        </div>
                     </div>
+                </div>
 
-                </section>
+                {/* AI Assistant Panel */}
+                <div className="col-md-6">
+                    <div className="card shadow">
+                        <div className="card-header">🤖 AI Assistant Panel</div>
+                        <div className="card-body">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Ask AI to suggest a task..."
+                                value={aiInput}
+                                onChange={(e) => setAiInput(e.target.value)}
+                            />
+                            <button
+                                className="btn btn-dark mt-2"
+                                onClick={handleAiPrompt}
+                            >
+                                Ask AI
+                            </button>
 
-                {/* AI Assistant */}
-                <section className="card bg-white dark:bg-dark border-0 shadow-sm mb-5">
-                    <div className="card-body">
-                        <h5 className="card-title fw-semibold">🤖 Your AI Assistant</h5>
-                        <p className="card-text">
-                            “You have 3 pending tasks today. Would you like to start with your top priority?”
-                        </p>
-                        <button className="btn btn-outline-primary">Open Assistant</button>
+                            {aiSuggestion && (
+                                <div className="alert alert-info mt-3">
+                                    <p className="mb-2">{aiSuggestion}</p>
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={addAiSuggestionToTasks}
+                                    >
+                                        ➕ Add to Tasks
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </section>
+                </div>
 
-                {/* Recent Activity */}
-                <section className="card bg-white dark:bg-dark border-0 shadow-sm">
-                    <div className="card-body">
-                        <h5 className="card-title fw-semibold">🕒 Recent Activity</h5>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item bg-transparent">🗂️ Project X updated 1 hour ago</li>
-                            <li className="list-group-item bg-transparent">✅ Task “Design Dashboard” marked complete</li>
-                            <li className="list-group-item bg-transparent">📩 AI Summary Report generated</li>
-                        </ul>
+                {/* Recent Activity Log */}
+                <div className="col-md-6">
+                    <div className="card shadow">
+                        <div className="card-header">📜 Recent Activity Log</div>
+                        <div className="card-body">
+                            <ul className="list-group small">
+                                {logs.slice(-6).reverse().map((log, index) => (
+                                    <li key={index} className="list-group-item">
+                                        {log}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </section>
+                </div>
             </div>
-        </article>
+
+            {/* Recent Summary Section */}
+            <div className="row mt-5">
+                <div className="col-md-4">
+                    <h5>📌 Tasks</h5>
+                    <ul className="list-group small">
+                        {tasks.map(task => (
+                            <li key={task.id} className="list-group-item">{task.text}</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="col-md-4">
+                    <h5>📑 Reports</h5>
+                    <ul className="list-group small">
+                        {reports.map(r => (
+                            <li key={r.id} className="list-group-item">{r.text}</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="col-md-4">
+                    <h5>🕒 Reminders</h5>
+                    <ul className="list-group small">
+                        {reminders.map(r => (
+                            <li key={r.id} className="list-group-item">{r.text}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
     );
 };
 

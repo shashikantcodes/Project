@@ -16,7 +16,7 @@ const themes = [
 
 const Navbar = () => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('selectedTheme') || 'classic-light';
+    return localStorage.getItem('selectedTheme') || 'anim-fade';
   });
 
   const [searchQuery, setSearchQuery] = useState('');
