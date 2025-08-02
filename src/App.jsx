@@ -13,6 +13,9 @@ import VerifyOtp from './components/auth/VerifyOtp';
 import UpdatePassword from './components/auth/UpdatePassword';
 import DashboardHome from './pages/dashboardHome/DashboardHome';
 import Notes from './pages/notes/Notes';
+import Reminders from './pages/reminder/Reminder';
+import CreateTask from './pages/createTask/CreateTask';
+import GenerateReport from './pages/generateReport/GenerateReport';
 
 function App() {
   return (<>
@@ -26,6 +29,9 @@ function App() {
       <Route path="/password/update" element={<UpdatePassword />} />
       <Route path="/dashboard-home" element={<DashboardHome />} />
       <Route path="/notes" element={<Notes />} />
+      <Route path="/reminders" element={<Reminders />} />
+      <Route path="/create-task" element={<CreateTask />} />
+      <Route path="/generate-report" element={<GenerateReport />} />
     </Routes>
     <Footer />
   </>);

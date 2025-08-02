@@ -15,7 +15,6 @@ function Home() {
         <FeaturedTeaser />
 
         <ProblemSolving />
-        {/* <DashboardHome /> */}
       </div>
     </main>
   );

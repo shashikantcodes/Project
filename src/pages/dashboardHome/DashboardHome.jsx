@@ -27,17 +27,32 @@ const DashboardHome = () => {
                             📝 Add Note
                         </button>
                     </div>
-
                     <div className="col-md-4">
-                        <button className="btn btn-success w-100 py-3 rounded-3 shadow-sm">
+                        <button
+                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
+                            onClick={() => navigate("/create-task")}
+                        >
                             ✅ Create Task
                         </button>
                     </div>
                     <div className="col-md-4">
-                        <button className="btn btn-warning w-100 py-3 rounded-3 shadow-sm text-dark">
+                        <button
+                            className="btn btn-primary w-100 py-3 rounded-3 shadow-sm"
+                            onClick={() => navigate("/generate-report")}
+                        >
                             📊 Generate Report
                         </button>
                     </div>
+
+                    <div className="col-md-4">
+                        <button
+                            className="btn btn-warning w-100 py-3 rounded-3 shadow-sm"
+                            onClick={() => navigate("/reminders")}
+                        >
+                            🔔 Reminders
+                        </button>
+                    </div>
+
                 </section>
 
                 {/* AI Assistant */}
